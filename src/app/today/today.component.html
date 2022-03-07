@@ -1,0 +1,71 @@
+<div class="row">
+  <div class="col-md-6 offest-md-3">
+    <div class="col-sm-12 text-center">
+      <h2>Weather in {{ weather.name }}, {{ weather.sys.country }}</h2>
+    </div>
+  </div>
+
+  <div class="search">
+    <div class="input-group mt-5">
+      <input
+        class="form-control"
+        type="text"
+        #userInput
+        placeholder="Enter city name"
+      />
+      <div class="input-group-append">
+        <button
+          class="input-group-text btn btn-outline-dark"
+          (click)="getCity(userInput.value)"
+        >
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-12">
+    <img src="assets/{{ weather.weather[0].icon }}.png" alt="01d.png" />
+    <p class="text-uppercase font-italic font-weight-bold">
+      {{ weather.weather[0].description }}
+    </p>
+  </div>
+
+  <table class="table table-hover">
+    <tbody>
+      <tr>
+        <td>Temperature</td>
+        <td>
+          {{ weather.main.temp | number: "1.0-0" }} &#176;F
+          <div *ngIf="weather.main.temp >= 61 && weather.main.temp <= 80">
+            <img src="assets/hot-sale.png" /> Warm
+          </div>
+          <div *ngIf="weather.main.temp >= 81 && weather.main.temp <= 90">
+            <img src="assets/hot-sale.png" /> Hot
+          </div>
+          <div *ngIf="weather.main.temp >= 91 && weather.main.temp <= 100">
+            <img src="assets/hot-sale.png" /> Very Hot
+          </div>
+          <div *ngIf="weather.main.temp >= 46 && weather.main.temp <= 60">
+            <img src="assets/fresh-air.png" /> Cool
+          </div>
+          <div *ngIf="weather.main.temp <= 45">
+            <img src="assets/ice-crystal.png" /> Cold
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>Humidity</td>
+        <td>{{ weather.main.humidity }}%</td>
+      </tr>
+      <tr>
+        <td>Pressure</td>
+        <td>{{ weather.main.pressure }} hPa</td>
+      </tr>
+      <tr>
+        <td>Geo Coordinates</td>
+        <td>[{{ weather.coord.lat }}, {{ weather.coord.lon }}]</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
